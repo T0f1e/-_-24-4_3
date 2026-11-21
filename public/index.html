@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Планировщик смен</title>
+  <link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+  <div id="app">
+    <!-- Экран авторизации -->
+    <section id="auth-screen" class="screen active">
+      <div class="auth-card">
+        <h1>Планировщик смен</h1>
+
+        <div class="tabs">
+          <button type="button" data-tab="login" class="tab active">Вход</button>
+          <button type="button" data-tab="register" class="tab">Регистрация</button>
+          <button type="button" data-tab="forgot" class="tab">Забыли пароль?</button>
+        </div>
+
+        <form id="login-form" class="tab-panel active">
+          <h2>Вход в аккаунт</h2>
+          <label>Email<input type="email" name="email" required></label>
+          <label>Пароль<input type="password" name="password" required></label>
+          <button type="submit" class="btn primary">Войти</button>
+          <div class="msg" data-msg="login"></div>
+        </form>
+
+        <form id="register-form" class="tab-panel">
+          <h2>Регистрация</h2>
+          <label>Имя<input type="text" name="name" required></label>
+          <label>Email<input type="email" name="email" required></label>
+          <label>Пароль (≥6 символов)<input type="password" name="password" minlength="6" required></label>
+          <button type="submit" class="btn primary">Создать аккаунт</button>
+          <div class="msg" data-msg="register"></div>
+        </form>
+
+        <form id="forgot-form" class="tab-panel">
+          <h2>Восстановление пароля</h2>
+          <label>Email<input type="email" name="email" required></label>
+          <button type="submit" class="btn primary">Отправить ссылку</button>
+          <div class="msg" data-msg="forgot"></div>
+          <div id="reset-block" style="display:none; margin-top:16px;">
+            <label>Токен<input type="text" id="reset-token"></label>
+            <label>Новый пароль<input type="password" id="reset-password" minlength="6"></label>
+            <button type="button" id="reset-submit" class="btn secondary">Сменить пароль</button>
+            <div class="msg" data-msg="reset"></div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Главный экран -->
+    <section id="main-screen" class="screen">
+      <header class="topbar">
+        <h2>Планировщик смен</h2>
+        <div class="user-info">
+          <span id="user-name"></span>
+          <span id="user-role" class="badge"></span>
+          <button type="button" id="logout-btn" class="btn ghost">Выйти</button>
+        </div>
+      </header>
+
+      <nav class="tabs main-tabs">
+        <button type="button" data-view="profile" class="tab active">Профиль</button>
+        <button type="button" data-view="employees" class="tab" id="employees-tab" style="display:none">Сотрудники</button>
+      </nav>
+
+      <div id="profile-view" class="view active">
+        <div class="card">
+          <h3>Мой профиль</h3>
+          <form id="profile-form">
+            <label>Имя<input type="text" name="name" required></label>
+            <label>Email<input type="email" name="email" disabled></label>
+            <label>Телефон<input type="text" name="phone"></label>
+            <button type="submit" class="btn primary">Сохранить</button>
+            <div class="msg" data-msg="profile"></div>
+          </form>
+        </div>
+      </div>
+
+      <div id="employees-view" class="view">
+        <div class="card">
+          <div class="view-header">
+            <h3>Сотрудники</h3>
+            <div class="row">
+              <input type="search" id="emp-search" placeholder="Поиск по имени...">
+              <button type="button" id="add-emp-btn" class="btn primary">+ Добавить</button>
+            </div>
+          </div>
+          <div id="emp-list" class="list"></div>
+          <div class="msg" data-msg="employees"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Модальное окно -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-content card">
+        <div class="modal-header">
+          <h3 id="modal-title"></h3>
+          <button type="button" class="modal-close" data-close>&times;</button>
+        </div>
+        <div id="modal-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=3"></script>
+</body>
+</html>
